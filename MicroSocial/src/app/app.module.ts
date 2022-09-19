@@ -17,6 +17,10 @@ import { MatNativeDateModule } from '@angular/material/core'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './sign-up/sign-up.component';
+
+import { NgxScannerQrcodeModule } from 'ngx-scanner-qrcode';
+import { QrScannerComponent } from './qr-scanner/qr-scanner.component';
+
 import { CreateEventComponent } from './create-event/create-event.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -26,11 +30,13 @@ import { HttpClientModule } from '@angular/common/http';
     PreferencesComponent,
     SignInComponent,
     SignUpComponent,
+    QrScannerComponent,
     CreateEventComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgxScannerQrcodeModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
