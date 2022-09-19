@@ -5,10 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { PreferencesComponent } from './preferences/preferences.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PreferencesComponent
   ],
   imports: [
     BrowserModule,
@@ -18,7 +20,7 @@ import { environment } from '../environments/environment';
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
-    })
+    }) 
   ],
   providers: [],
   bootstrap: [AppComponent]
