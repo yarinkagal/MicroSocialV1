@@ -25,6 +25,7 @@
     "@angular/service-worker": "~13.3.0",
     "@syncfusion/ej2-angular-calendars": "^20.2.46",
     "http-server": "^14.1.1",
+    "ngx-scanner-qrcode": "^1.0.18",
     "moment": "^2.29.4",
     "replace-in-file": "^6.3.5",
     "rxjs": "~7.5.0",
