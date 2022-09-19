@@ -1,5 +1,7 @@
-import { Input, Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -8,19 +10,33 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class SignUpComponent {
 
-  constructor() { }
+  public email:string = '';
+  public password:string = '';  
+  
+  constructor(private http: HttpClient,
+              private router: Router) { }
   
   form: FormGroup = new FormGroup({
-    username: new FormControl(''),
+    email: new FormControl(''),
     password: new FormControl(''),
   });
 
   submit() {
     if (this.form.valid) {
-      this.submitEM.emit(this.form.value);
+      const user = {
+        Email: this.email,
+        Password: this.password
+      };
+      const req = this.http.post<boolean>('https://microsocial.azurewebsites.net/users/signUp', user);
+      req.subscribe((response) => {
+        if(response) {
+          console.log("user signed up!");
+          this.router.navigate(['/preferences']); //TODO- Change to home page
+        }
+        else {
+          console.log("user already exists");
+        }
+      });
     }
   }
-
-  @Output() submitEM = new EventEmitter();
-
 }

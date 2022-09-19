@@ -18,6 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { CreateEventComponent } from './create-event/create-event.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { CreateEventComponent } from './create-event/create-event.component';
       registrationStrategy: 'registerWhenStable:30000'
     }),
     BrowserAnimationsModule,
+    HttpClientModule,
     MatCardModule,
     MatInputModule,
     MatButtonModule,

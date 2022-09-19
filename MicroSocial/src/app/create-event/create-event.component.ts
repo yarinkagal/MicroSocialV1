@@ -12,10 +12,10 @@ export class CreateEventComponent {
   }
 
   eventTypes = [
-    {value: 'basketball-0', viewValue: 'Basketball game'},
-    {value: 'music-1', viewValue: 'Music Session'},
-    {value: 'playDate-2', viewValue: 'Play Date'},
-    {value: 'workout-3', viewValue: 'Workout'}
+    {value: 'basketball-0', viewValue: "Basketball game"},
+    {value: 'music-1', viewValue: "Music Session"},
+    {value: 'playDate-2', viewValue: "Play Date"},
+    {value: 'workout-3', viewValue: "Workout"}
   ];
 
   form: FormGroup = new FormGroup({
