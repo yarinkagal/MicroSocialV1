@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { NgxScannerQrcodeModule } from 'ngx-scanner-qrcode';
-import { QrScannerComponent } from './qrScanner/qr-scanner/qr-scanner.component';
+import { QrScannerComponent } from './qr-scanner/qr-scanner.component';
 
 @NgModule({
   declarations: [
