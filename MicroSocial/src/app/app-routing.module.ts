@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PreferencesComponent } from './preferences/preferences.component';
+import { AppComponent } from './app.component';
+import { SignInComponent } from './sign-in/sign-in.component';
 
 const routes: Routes = [
-  {path: 'preferences',component: PreferencesComponent}
+  { path: '', component: AppComponent },
+  { path: 'sign-in', component: SignInComponent },
+  { path: 'preferences', component: PreferencesComponent }
 ];
 
 @NgModule({
