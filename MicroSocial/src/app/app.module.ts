@@ -9,9 +9,15 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core'
+import { MatFormFieldModule } from '@angular/material/form-field'
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { CreateEventComponent } from './create-event/create-event.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +25,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     PreferencesComponent,
     SignInComponent,
     SignUpComponent,
+    CreateEventComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,9 +40,16 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     MatCardModule,
     MatInputModule,
     MatButtonModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatIconModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    MatDatepickerModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
