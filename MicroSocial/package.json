@@ -22,6 +22,7 @@
     "@angular/router": "~13.3.0",
     "@angular/service-worker": "~13.3.0",
     "http-server": "^14.1.1",
+    "ngx-scanner-qrcode": "^1.0.18",
     "replace-in-file": "^6.3.5",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Observable, of } from 'rxjs';
+
+
 
 @Component({
   selector: 'app-qr-scanner',
@@ -7,31 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QrScannerComponent implements OnInit {
 
-  public output: string;
+  public output$: Observable<string>;
 
-  /**
-   * Properties
-   * CanvasRenderingContext2D
-   * https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
-   */
-  public frameConfig: Object = {
-    lineWidth: 4,
-    strokeStyle: 'red'
-  };
-  public textConfig: Object = {
-    font: 'bold 18px serif',
-    fillStyle: 'red'
-  };
-
-  // @ViewChild('action', { static: true }) action: NgxScannerQrcodeComponent;
-  // TODO something this.action
-
+  
   public onError(e: any): void {
     alert(e);
   }
 
   constructor() {
-    this.output = "";
+    this.output$ = of("");
    }
 
   ngOnInit(): void {

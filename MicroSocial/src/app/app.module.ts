@@ -12,6 +12,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { NgxScannerQrcodeModule } from 'ngx-scanner-qrcode';
+import { QrScannerComponent } from './qrScanner/qr-scanner/qr-scanner.component';
 
 @NgModule({
   declarations: [
@@ -19,10 +21,12 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     PreferencesComponent,
     SignInComponent,
     SignUpComponent,
+    QrScannerComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgxScannerQrcodeModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
