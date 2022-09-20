@@ -1,6 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationsService } from '../notifications.service';
+import { HttpClient } from '@angular/common/http';
 
+interface Event {
+  id: string;
+  maxParticipants: number;
+  owner: string;
+  category: string;
+  time: string;
+  date: string;
+  //participantsList: List<User>;
+}
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -10,35 +20,45 @@ export class HomeComponent implements OnInit {
 
   myEvents = [
     {
-      eventType: "Play Date",
-      eventDate: "25.09.22",
-      eventTime: "10:30"
+      category: "Play Date",
+      date: "25.09.22",
+      time: "10:30"
     }
   ]
 
   events = [
     {
-      eventType: "Basketball",
-      eventDate: "20.09.22",
-      eventTime: "now"
+      category: "Basketball",
+      date: "20.09.22",
+      time: "now"
     },
     {
-      eventType: "Play Date",
-      eventDate: "25.09.22",
-      eventTime: "10:30"
+      category: "Play Date",
+      date: "25.09.22",
+      time: "10:30"
     },
     {
-      eventType: "Music Session",
-      eventDate: "25.09.22",
-      eventTime: "16:00"
+      category: "Music Session",
+      date: "25.09.22",
+      time: "16:00"
     }
   ]
 
   constructor(
     private readonly notificationsService: NotificationsService,
+    private http: HttpClient,
   ) { }
 
   ngOnInit(): void {
+
+    this.http.get<Event[]>('https://microsocial.azurewebsites.net/events/allEvents').subscribe((events) => {
+      events.forEach( (event) => {
+        this.events.push({
+          category: event.category,
+          date: event.date,
+          time: event.time
+        });
+    })});
 
     const button = document.getElementById('notifications');
     if (button) {
@@ -50,7 +70,5 @@ export class HomeComponent implements OnInit {
         });
       })
     }
-
   }
-
 }

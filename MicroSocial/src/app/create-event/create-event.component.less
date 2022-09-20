@@ -1,26 +1,137 @@
-:host {
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Raleway, sans-serif;
+}
+
+.container {
+  background: linear-gradient(90deg, #1781AC, #b1d2d1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.screen {
+  background: #fff;
+  position: relative;
+  height: 800px;
+  width: 700px;
+  box-shadow: 0px 0px 32px #1781AC;
+}
+
+.screen__content {
+  z-index: 1;
+  position: relative;
+  height: 100%;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: auto;
+}
+
+.screen__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  -webkit-clip-path: inset(0 0 0 0);
+  clip-path: inset(0 0 0 0);
+}
+
+.create_event {
+	background: #fff;
+	font-size: 14px;
+	margin-top: 0px;
+	padding: 16px 20px;
+	border-radius: 26px;
+	border: 1px solid #D4D3E8;
+	text-transform: uppercase;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	color: #1781AC;
+	box-shadow: 0px 2px 2px #1781AC;
+	cursor: pointer;
+	transition: .2s;
+  margin-bottom: 20px;
+}
+
+.create_event:active,
+.create_event:focus,
+.create_event:hover {
+	border-color: #1781AC;
+	outline: none;
+}
+
+.form_field {
+	padding: 5px 0px;	
+	position: relative;	
+}
+
+.events {
+  width: 320px;
+	padding: 30px;
+	padding-top: 35px;
+  margin-left: auto;
+  margin-right: auto;
+
+  mat-form-field {
     display: flex;
     justify-content: center;
-    margin: 100px 0px;
-
-    ::ng-deep .mat-card{
-        background-color: rgb(209, 209, 209);
-    }
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
   }
+}
 
-  .mat-form-field {
-    width: 100%;
-    min-width: 300px;
-  }
+mat-label {
+  color: #1781AC;
+}
 
-  mat-card-title,
-  mat-card-content {
-    display: flex;
-    justify-content: center;
-  }
+h1 {
+  color:#1781AC;
+  font-size: 32px;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
 
-  .button {
-    display: flex;
-    justify-content: flex-end;
-  }
+input {
+  color: #1781AC;
+}
 
+input[type="time"]::-webkit-calendar-picker-indicator{
+  filter: invert(100%);
+}
+
+mat-option{
+  background-color: #fff;
+  color:#1781AC;
+}
+
+/* To change mat form field border color */
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color:#1781AC;
+}
+
+::ng-deep .mat-datepicker-toggle {
+  color:#1781AC;
+}
+
+::ng-deep .mat-select-arrow {
+  color:#1781AC;
+}
+
+::ng-deep .mat-select-value-text {    
+  color: #1781AC;  
+}
+
+::ng-deep .mat-select-placeholder {
+  color: #1781AC;  
+}

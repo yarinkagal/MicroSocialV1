@@ -1,41 +1,45 @@
-<mat-card>
-    <mat-card-title>Create Event</mat-card-title>
-<mat-card-content>
-<form [formGroup]="form" (ngSubmit)="createEvent()">
-  <p>
-    <mat-form-field>
-        <mat-select placeholder="Event type">
-            <mat-option *ngFor="let eventType of eventTypes" [value]="eventType.value">
-              {{ eventType.viewValue }}
-            </mat-option>
-          </mat-select>    
-    </mat-form-field>
-  </p>
-<p>
-    <mat-form-field appearance="outline">
-        <mat-label>Select date</mat-label>
-        <input matInput formControlName="eventDate" [matDatepicker]="eventDatePicker">
-        <mat-datepicker-toggle matSuffix [for]="eventDatePicker">
-        </mat-datepicker-toggle>
-        <mat-datepicker #eventDatePicker>
-        </mat-datepicker>
-      </mat-form-field>
-</p>
-<p>
-    <mat-form-field appearance="outline">
-        <mat-label>Select time</mat-label>
-        <input type="time" matInput name="hour" min="05:00" max="20:00">
-     </mat-form-field>
-</p>
-<p>
-    <mat-form-field appearance="outline">
-        <mat-label>Max participants</mat-label>
-        <input type="number" matInput name="maxParticipants" min="0" max="1000">
-     </mat-form-field>
-</p>
-<div class="button">
-    <button type="submit" mat-button>Create event</button>
+<div class="container">
+  <div class="screen">
+    <div class="screen__content">
+      <h1>Create Event</h1>
+        <form class="events" [formGroup]="form" (ngSubmit)="createEvent()">
+          <p>
+            <mat-form-field class="form_field" appearance="outline">
+              <mat-select placeholder="Event type">
+                <mat-option *ngFor="let eventType of eventTypes" [value]="eventType.value">
+                  {{ eventType.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="form_field" appearance="outline">
+              <mat-label>Select date</mat-label>
+              <input matInput formControlName="eventDate" [matDatepicker]="eventDatePicker">
+              <mat-datepicker-toggle matSuffix [for]="eventDatePicker">
+              </mat-datepicker-toggle>
+              <mat-datepicker #eventDatePicker>
+              </mat-datepicker>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="form_field" appearance="outline">
+              <mat-label>Select time</mat-label>
+              <input type="time" matInput name="hour" min="05:00" max="20:00">
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="form_field" appearance="outline">
+              <mat-label>Max participants</mat-label>
+              <input type="number" matInput name="maxParticipants" min="0" max="1000">
+            </mat-form-field>
+          </p>
+          <div class="button">
+            <button class="button create_event" type="submit">
+              <span class="button__text">Log In Now</span>
+            </button>
+          </div>
+        </form>
+    </div>
   </div>
-</form>
-</mat-card-content>
-</mat-card>
+</div>
