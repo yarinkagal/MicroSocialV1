@@ -31,7 +31,7 @@ export class SignUpComponent {
       req.subscribe((response) => {
         if(response) {
           console.log("user signed up!");
-          this.router.navigate(['/preferences']); //TODO- Change to home page
+          this.router.navigate(['/home']); 
         }
         else {
           console.log("user already exists");

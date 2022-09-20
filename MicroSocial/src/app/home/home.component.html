@@ -1,4 +1,31 @@
-<p>home works!</p>
-<button id="notifications">
-Allow Notifications
-</button>
+<p class="text-center">
+    <button id="notifications">
+        Allow Notifications
+    </button>
+</p>
+<h3>My events</h3>
+<p>
+    <span *ngFor="let myEvent of myEvents">
+        <mat-card>
+            <mat-card-title>{{myEvent.eventType}}</mat-card-title>
+            <mat-card-subtitle>{{myEvent.eventDate}}</mat-card-subtitle>
+            <mat-card-subtitle>{{myEvent.eventTime}}</mat-card-subtitle>
+            <mat-card-actions>
+                <button mat-button>Leave</button>
+            </mat-card-actions>
+        </mat-card>
+    </span>
+</p>
+<h3>Upcoming events</h3>
+<p>
+    <span *ngFor="let event of events">
+        <mat-card>
+            <mat-card-title>{{event.eventType}}</mat-card-title>
+            <mat-card-subtitle>{{event.eventDate}}</mat-card-subtitle>
+            <mat-card-subtitle>{{event.eventTime}}</mat-card-subtitle>
+            <mat-card-actions>
+                <button mat-button>Join</button>
+            </mat-card-actions>
+        </mat-card>
+    </span>    
+</p>

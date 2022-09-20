@@ -9,7 +9,7 @@ import { CreateEventComponent } from './create-event/create-event.component';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: '', component: AppComponent },
+  { path: '', redirectTo:'/home' ,pathMatch:'full' },
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'preferences', component: PreferencesComponent },
