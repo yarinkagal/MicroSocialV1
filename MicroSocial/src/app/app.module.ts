@@ -23,6 +23,8 @@ import { QrScannerComponent } from './qr-scanner/qr-scanner.component';
 
 import { CreateEventComponent } from './create-event/create-event.component';
 import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './home/home.component';
+import { NotificationsService } from './notifications.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { HttpClientModule } from '@angular/common/http';
     SignUpComponent,
     QrScannerComponent,
     CreateEventComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,8 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
   ],
   providers: [
-    MatDatepickerModule
+    MatDatepickerModule,
+    NotificationsService
   ],
   bootstrap: [AppComponent]
 })
