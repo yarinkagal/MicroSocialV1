@@ -1,1 +1,11 @@
-<p>preferences works!</p>
+<div class="preferences-page-container">
+  <h1>Welcome {{email}}</h1>
+
+  <h3> What are your intersts? </h3>
+
+  <mat-chip-list  class="preferences-container">
+    <mat-chip color="primary" *ngFor="let preference of preferences">
+      {{preference}}
+    </mat-chip>
+  </mat-chip-list>
+</div>
