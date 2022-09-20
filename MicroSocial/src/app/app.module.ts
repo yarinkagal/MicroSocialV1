@@ -23,6 +23,9 @@ import { QrScannerComponent } from './qr-scanner/qr-scanner.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CreateEventComponent } from './create-event/create-event.component';
 import { QrScannerDialogComponent } from './qr-scanner/qr-scanner-dialog.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './home/home.component';
+import { NotificationsService } from './notifications.service';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,7 @@ import { QrScannerDialogComponent } from './qr-scanner/qr-scanner-dialog.compone
     QrScannerComponent,
     CreateEventComponent,
     QrScannerDialogComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +50,7 @@ import { QrScannerDialogComponent } from './qr-scanner/qr-scanner-dialog.compone
       registrationStrategy: 'registerWhenStable:30000'
     }),
     BrowserAnimationsModule,
+    HttpClientModule,
     MatCardModule,
     MatInputModule,
     MatButtonModule,
@@ -57,7 +62,8 @@ import { QrScannerDialogComponent } from './qr-scanner/qr-scanner-dialog.compone
     ReactiveFormsModule,
   ],
   providers: [
-    MatDatepickerModule
+    MatDatepickerModule,
+    NotificationsService
   ],
   bootstrap: [AppComponent]
 })
