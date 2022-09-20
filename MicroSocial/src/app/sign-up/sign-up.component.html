@@ -1,23 +1,24 @@
-<mat-card>
-    <mat-card-title>Sign up</mat-card-title>
-<mat-card-content>
-<form [formGroup]="form" (ngSubmit)="submit()">
-  <p>
-    <mat-form-field>
-      <input type="text" matInput placeholder="Email" formControlName="email" [(ngModel)]="email">
-    </mat-form-field>
-  </p>
-
-  <p>
-    <mat-form-field>
-      <input type="password" matInput placeholder="Password" formControlName="password" [(ngModel)]="password">
-    </mat-form-field>
-  </p>
-
-  <div class="button">
-    <button type="submit" mat-button>Sign up</button>
-  </div>
-  <a [routerLink]="[ '/sign-in' ]" routerLinkActive="active">Already have an account? Sign in</a>
-</form>
-</mat-card-content>
-</mat-card>
+<div class="container">
+	<div class="screen">
+		<div class="screen__content">
+			<form class="signin" [formGroup]="form" (ngSubmit)="submit()">
+				<div class="signin__field">
+					<input type="text" class="signin__input" placeholder="Email" formControlName="email" [(ngModel)]="email">
+				</div>
+				<div class="signin__field">
+					<input type="password" class="signin__input" placeholder="Password" formControlName="password" [(ngModel)]="password">
+				</div>
+				<button type="submit" class="button signin__submit">
+					<span class="button__text">Log In Now</span>
+				</button>			
+        <a [routerLink]="[ '/sign-in' ]" routerLinkActive="active">Already have an account? Sign in</a>	
+			</form>
+		</div>
+		<div class="screen__background">
+			<span class="screen__background__shape screen__background__shape4"></span>
+			<span class="screen__background__shape screen__background__shape3"></span>		
+			<span class="screen__background__shape screen__background__shape2"></span>
+			<span class="screen__background__shape screen__background__shape1"></span>
+		</div>		
+	</div>
+</div>
