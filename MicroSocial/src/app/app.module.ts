@@ -15,6 +15,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core'
 import { MatFormFieldModule } from '@angular/material/form-field'
+import {MatChipsModule} from '@angular/material/chips';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './sign-up/sign-up.component';
 
@@ -59,6 +61,7 @@ import { NotificationsService } from './notifications.service';
     MatNativeDateModule,
     MatFormFieldModule,
     MatIconModule,
+    MatChipsModule,
     ReactiveFormsModule,
   ],
   providers: [
