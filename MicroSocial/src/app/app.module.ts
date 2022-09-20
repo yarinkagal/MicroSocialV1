@@ -20,8 +20,9 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 
 import { NgxScannerQrcodeModule } from 'ngx-scanner-qrcode';
 import { QrScannerComponent } from './qr-scanner/qr-scanner.component';
-
+import { MatDialogModule } from '@angular/material/dialog';
 import { CreateEventComponent } from './create-event/create-event.component';
+import { QrScannerDialogComponent } from './qr-scanner/qr-scanner-dialog.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { NotificationsService } from './notifications.service';
@@ -34,12 +35,14 @@ import { NotificationsService } from './notifications.service';
     SignUpComponent,
     QrScannerComponent,
     CreateEventComponent,
+    QrScannerDialogComponent,
     HomeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgxScannerQrcodeModule,
+    MatDialogModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable

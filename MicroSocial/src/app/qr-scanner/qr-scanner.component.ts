@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Observable, of } from 'rxjs';
-
+import { Component } from '@angular/core';
+import { NgxScannerQrcodeComponent } from 'ngx-scanner-qrcode/lib/ngx-scanner-qrcode.component';
+import { MatDialog } from '@angular/material/dialog';
+import { QrScannerDialogComponent } from './qr-scanner-dialog.component';
 
 
 @Component({
@@ -8,20 +9,27 @@ import { Observable, of } from 'rxjs';
   templateUrl: './qr-scanner.component.html',
   styleUrls: ['./qr-scanner.component.less']
 })
-export class QrScannerComponent implements OnInit {
-
-  public output$: Observable<string>;
-
-  
+export class QrScannerComponent { 
   public onError(e: any): void {
     alert(e);
   }
-
-  constructor() {
-    this.output$ = of("");
-   }
-
-  ngOnInit(): void {
+  onScan(e: any, action: NgxScannerQrcodeComponent) {
+    if (e != null) {
+      action.stop();
+      console.log(e);
+      let dialogRef = this.dialog.open(QrScannerDialogComponent, {
+        data: { location: e },
+      });
+      dialogRef.afterClosed().subscribe((result) => {
+        console.log(`Dialog result: ${result}`);
+        if (result) {
+          // approved
+          console.log(`User approved the scan result`);
+        }
+      });
+    }
   }
 
+  constructor(public dialog: MatDialog) {}
 }
+ 

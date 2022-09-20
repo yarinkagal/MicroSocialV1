@@ -4,12 +4,9 @@
     <!-- ngx-scanner-qrcode -->
     <ngx-scanner-qrcode 
       #action="scanner" 
-      (data)="output$ = $event" 
+      (data)="onScan($event, action)" 
       (error)="onError($event)">
     </ngx-scanner-qrcode>
-  
-    <!-- data  -->
-    <p class="data">{{ output$ }}</p>
   
     <!-- Loading -->
     <p *ngIf="action.isLoading">⌛ Loading video...</p>
