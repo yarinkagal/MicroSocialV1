@@ -3,6 +3,15 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProfileComponent } from '../profileData';
 
+export class Preference {
+  name: string;
+  on: boolean
+
+  constructor(name: string,on:boolean) {
+    this.name = name;
+    this.on = on;
+  }
+}
 @Component({
   selector: 'app-preferences',
   templateUrl: './preferences.component.html',
@@ -10,7 +19,9 @@ import { ProfileComponent } from '../profileData';
 })
 export class PreferencesComponent implements OnInit {
 
-  preferences: any[] = ["Basketball","Gym","Running","Sea walking","Dogs","Kids"];
+  preferences: Preference[] | undefined;
+  
+  //= ["Basketball","Gym","Running","Sea walking","Dogs","Kids"];
   email = "";
 
   constructor(private http: HttpClient,
@@ -24,11 +35,20 @@ export class PreferencesComponent implements OnInit {
       req.subscribe((response) => {
         if(response) {
           console.log("user prefernces " + JSON.stringify(response));
+          this.preferences = response;
+
+          // temp:
+          // this.preferences = [{ name:"Basketball", on: true},{name:"Gym",on:false},
+          // {name:"Running",on:false},{ name:"Sea walking",on:true},{name:"Dogs",on:true},
+          // {name:"Kids",on:false}];
         }
         else {
-          console.log("Invalid user");
+          console.log("Invalid preferences");
         }
       });
   }
 
+  onSkip(): void {
+    this.router.navigate(['/home']); 
+  }
 }

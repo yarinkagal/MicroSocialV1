@@ -3,9 +3,12 @@
 
   <h3> What are your intersts? </h3>
 
-  <mat-chip-list  class="preferences-container">
-    <mat-chip color="primary" *ngFor="let preference of preferences">
-      {{preference}}
+  <mat-chip-list multiple="true" class="preferences-container">
+    <mat-chip *ngFor="let preference of preferences">
+      {{preference.name}}
     </mat-chip>
   </mat-chip-list>
+
+  <button mat-raised-button>proceed</button>
+  <button mat-raised-button (click)="onSkip()">skip</button>
 </div>
