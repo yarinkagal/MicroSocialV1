@@ -22,7 +22,7 @@ export class QrScannerComponent {
       });
       dialogRef.afterClosed().subscribe((result) => {
         console.log(`Dialog result: ${result}`);
-        if (result) {
+        if (result == "Approve") {
           // approved
           console.log(`User approved the scan result`);
         }
