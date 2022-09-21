@@ -10,7 +10,8 @@ import { ProfileComponent } from '../profileData';
 })
 export class PreferencesComponent implements OnInit {
 
-  preferences: any[] = ["Basketball","Gym","Running","Sea walking","Dogs","Kids"];
+  preferences: any | undefined;
+  
   email = "";
 
   constructor(private http: HttpClient,
@@ -20,15 +21,42 @@ export class PreferencesComponent implements OnInit {
 
   ngOnInit(): void {
     this.email = ProfileComponent.userEmail;
-    const req = this.http.get<any>(`https://microsocial.azurewebsites.net/GetPreferences/${this.email}`);
+    const req = this.http.get<any>(`https://microsocial.azurewebsites.net/users/GetUser/${this.email}`);  
       req.subscribe((response) => {
         if(response) {
           console.log("user prefernces " + JSON.stringify(response));
+          this.preferences = response.preferences;
         }
         else {
-          console.log("Invalid user");
+          console.log("Invalid preferences");
         }
       });
   }
 
+  chipControlOnSelect(event: any,preference: any) {
+      this.preferences[preference] = event.selected;
+  
+    
+  }
+
+  saveAndProceed() {
+
+    let data = {
+      email: this.email,
+      preferences: this.preferences
+    };
+
+    const req = this.http.put<any>('https://microsocial.azurewebsites.net/users/setPreferences', data);
+    req.subscribe((response) => {
+        console.log("preferences saved");
+        
+      this.router.navigate(['/home']); 
+    });
+  }
+
+  onSkip(): void {
+    this.router.navigate(['/home']); 
+  }
+
+  public keepOriginalOrder = (a: any, b: any) => a.key;
 }

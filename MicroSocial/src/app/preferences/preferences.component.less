@@ -1,3 +1,54 @@
 .preferences-page-container {
-    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+    min-height: 100vh;
+    justify-content: space-between;
+}
+
+.preferences-content h1,
+.preferences-content h3 {
+   padding-left: 10px;
+   
+}
+
+.preferences-content h1{ 
+    font-weight: bold;
+}
+
+.preferences-content {
+    padding-top: 15px;
+}
+.mat-chip {
+  color: gray;		
+  background-color: lightgray;     
+}
+
+.mat-chip.mat-standard-chip {
+    margin: 10px;
+}
+
+.mat-chip.mat-standard-chip.mat-chip-selected {
+    color: white;		
+    background-color: #1781AC;
+}
+
+.mat-raised-button {
+    background-color: white;
+    color: #1781AC;
+    margin-bottom: 15px;
+    box-shadow: 0px 2px 2px #1781AC;
+    border: 1px solid #D4D3E8;
+
+    &:hover {
+        color: white;
+        background-color: #1781AC;
+    
+    }
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+  //  justify-content: center;
 }
