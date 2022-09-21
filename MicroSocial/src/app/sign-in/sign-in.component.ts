@@ -33,7 +33,7 @@ export class SignInComponent {
         if(response) {
           console.log("user signed in!");
           ProfileComponent.userEmail = user.Email;
-          this.router.navigate(['/preferences']); 
+          this.router.navigate(['/home']); 
         }
         else {
           console.log("Invalid user");
