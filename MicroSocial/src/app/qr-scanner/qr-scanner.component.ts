@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgxScannerQrcodeComponent } from 'ngx-scanner-qrcode/lib/ngx-scanner-qrcode.component';
 import { MatDialog } from '@angular/material/dialog';
 import { QrScannerDialogComponent } from './qr-scanner-dialog.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,13 +24,14 @@ export class QrScannerComponent {
       dialogRef.afterClosed().subscribe((result) => {
         console.log(`Dialog result: ${result}`);
         if (result == "Approve") {
-          // approved
           console.log(`User approved the scan result`);
+          // TODO: push notification
+          this.router.navigate(['home']);
         }
       });
     }
   }
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private router: Router) {}
 }
  
