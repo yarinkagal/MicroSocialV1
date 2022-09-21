@@ -26,6 +26,8 @@ export class QrScannerComponent {
         if (result == "Approve") {
           console.log(`User approved the scan result`);
           // TODO: push notification
+          let location: string = e.split(' ').join('_');
+          console.log('User approved the scan result - ' + location);
           this.router.navigate(['home']);
         }
       });
