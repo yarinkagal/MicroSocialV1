@@ -1,16 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationsService } from '../notifications.service';
 import { HttpClient } from '@angular/common/http';
+import { ProfileComponent, Event } from '../profileData';
 
-interface Event {
-  id: string;
-  maxParticipants: number;
-  owner: string;
-  category: string;
-  time: string;
-  date: string;
-  //participantsList: List<User>;
-}
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -18,22 +10,24 @@ interface Event {
 })
 export class HomeComponent implements OnInit {
 
+  public checkInButtonValue: string = "Check In";
+
   myEvents = [
     {
-      category: "Play Date",
+      category: "Play date",
       date: "25.09.22",
       time: "10:30"
     }
   ]
 
-  events = [
+  public events = [
     {
       category: "Basketball",
       date: "20.09.22",
       time: "now"
     },
     {
-      category: "Play Date",
+      category: "Play date",
       date: "25.09.22",
       time: "10:30"
     },
@@ -51,14 +45,31 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.http.get<Event[]>('https://microsocial.azurewebsites.net/events/allEvents').subscribe((events) => {
-      events.forEach( (event) => {
+    //get all events
+    this.http.get<Event[]>('https://microsocial.azurewebsites.net/events/allEvents').subscribe((serverEvents) => {
+      serverEvents.forEach( (serverEvent) => {
         this.events.push({
-          category: event.category,
-          date: event.date,
-          time: event.time
+          category: serverEvent.category,
+          date: serverEvent.date,
+          time: serverEvent.time
         });
     })});
+
+    //get my events
+    this.http.get<Event[]>('https://microsocial.azurewebsites.net/events/GetUsersEvents/' + ProfileComponent.userEmail).subscribe((serverMyEvents) => {
+      serverMyEvents.forEach( (serverMyEvent) => {
+        this.myEvents.push({
+          category: serverMyEvent.category,
+          date: serverMyEvent.date,
+          time: serverMyEvent.time
+        });
+    })});
+
+    //get user information to check if he is checked in
+    this.http.get<any>('https://microsocial.azurewebsites.net/users/GetUser/' + ProfileComponent.userEmail).subscribe((userInfo) => {
+      let isCheckedIn: boolean =  userInfo.CheckedIn;
+      this.checkInButtonValue = isCheckedIn ? "Check Out" : "Check In";
+    });
 
     const button = document.getElementById('notifications');
     if (button) {
@@ -72,11 +83,23 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  public onJoinEventClicked(eventId:string) {
+  public onJoinEventClicked(eventId:string): void {
     console.log(eventId);
   }
 
-  public onLeaveEventClicked(eventId:string) {
-    console.log(eventId);
+  public checkIn(): void {
+    let checkedIn = this.checkInButtonValue === "Check In" ? true : false;
+    this.http.put<void>('https://microsocial.azurewebsites.net/users/checkInOut', { Email: ProfileComponent.userEmail, CheckedIn: checkedIn});
+    if (this.checkInButtonValue === "Check In") {
+      this.checkInButtonValue = "Check Out";
+      console.log("Checked In");
+    }
+    else if (this.checkInButtonValue === "Check out") {
+      this.checkInButtonValue = "Check In";
+      console.log("Checked out");
+    }
+    else {
+      console.log("Checked in/ out failed");
+    }
   }
 }

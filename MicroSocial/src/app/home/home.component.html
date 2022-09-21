@@ -37,5 +37,11 @@
         <button class="button styled_button" [routerLink]="[ '/qr-scanner' ]" routerLinkActive="active">
             <span class="button__text">Scan a QR code</span>
         </button>
+        <button class="button styled_button" (click)="checkIn()">
+            <span class="button__text">{{checkInButtonValue}}</span>
+        </button>
+        <button class="button styled_button" [routerLink]="[ '/create-event' ]" routerLinkActive="active">
+            <span class="button__text">Create event</span>
+        </button>
     </div>
 </div>

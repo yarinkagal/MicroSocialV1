@@ -1,5 +1,8 @@
-import { Input, Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { ProfileComponent, Event } from '../profileData';
 
 @Component({
   selector: 'app-create-event',
@@ -8,7 +11,12 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class CreateEventComponent {
 
-  constructor() { 
+  public eventTime: string = '';
+  public eventDate: Date = new Date();
+  public eventCategory: string = '';
+
+  constructor(private http: HttpClient,
+              private router: Router) { 
   }
 
   eventTypes = [
@@ -19,16 +27,40 @@ export class CreateEventComponent {
   ];
 
   form: FormGroup = new FormGroup({
-    eventType: new FormControl(''),
+    eventCategory: new FormControl(''),
     eventDate: new FormControl(''),
+    eventTime: new FormControl(''),
   });
 
   createEvent() {
     if (this.form.valid) {
-      this.createEventEM.emit(this.form.value);
+      let date: string = '';
+      if(this.eventDate.getUTCDate() < 10) {
+        date += '0'
+      }
+      date += this.eventDate.getUTCDate().toString();
+      if((this.eventDate.getUTCMonth()+1) < 10) {
+        date += '0'
+      }
+      date += (this.eventDate.getUTCMonth()+1).toString();
+      date += this.eventDate.getFullYear().toString();
+
+      const newEvent = <Partial<Event>>{
+        category: this.eventTypes.filter(item => item.value === this.eventCategory)[0].viewValue,
+        time: this.eventTime,
+        date: date,
+        owner: ProfileComponent.userEmail
+      };
+      const req = this.http.post<string>('https://microsocial.azurewebsites.net/events/addevent', newEvent);
+      req.subscribe((response) => {
+        if(response) {
+          console.log("Event Created!");
+          this.router.navigate(['/home']); 
+        }
+        else {
+          console.log("Invalid event");
+        }
+      });
     }
   }
-
-  @Output() createEventEM = new EventEmitter();
-
 }
