@@ -1,14 +1,21 @@
 <div class="preferences-page-container">
-  <h1>Welcome {{email}}</h1>
+  <div class="preferences-content">
+    <h1>Welcome {{email}}</h1>
 
-  <h3> What are your intersts? </h3>
+    <h3> What are your intersts? </h3>
 
-  <mat-chip-list multiple="true" class="preferences-container">
-    <mat-chip *ngFor="let preference of preferences">
-      {{preference.name}}
-    </mat-chip>
-  </mat-chip-list>
 
-  <button mat-raised-button>proceed</button>
-  <button mat-raised-button (click)="onSkip()">skip</button>
+    <mat-chip-list multiple class="preferences-container">
+      <mat-chip *ngFor="let preference of preferences | keyvalue" [selected]="!!preference.value"
+      #chip="matChip"
+      (click)='chip.select()'
+      (selectionChange)="chipControlOnSelect($event,preference.key)">
+        {{preference.key}}
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+  <div class="buttons-container">
+    <button mat-raised-button (click)="saveAndProceed()">proceed</button>
+    <button mat-raised-button (click)="onSkip()">skip</button>
+  </div>
 </div>
