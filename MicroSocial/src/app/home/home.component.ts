@@ -89,12 +89,12 @@ export class HomeComponent implements OnInit {
 
   public checkIn(): void {
     let checkedIn = this.checkInButtonValue === "Check In" ? true : false;
-    this.http.put<void>('https://microsocial.azurewebsites.net/users/checkInOut', { Email: ProfileComponent.userEmail, CheckedIn: checkedIn});
+    this.http.post<any>('https://microsocial.azurewebsites.net/users/checkInOut', { Email: ProfileComponent.userEmail, CheckedIn: checkedIn}).subscribe();
     if (this.checkInButtonValue === "Check In") {
       this.checkInButtonValue = "Check Out";
       console.log("Checked In");
     }
-    else if (this.checkInButtonValue === "Check out") {
+    else if (this.checkInButtonValue === "Check Out") {
       this.checkInButtonValue = "Check In";
       console.log("Checked out");
     }
