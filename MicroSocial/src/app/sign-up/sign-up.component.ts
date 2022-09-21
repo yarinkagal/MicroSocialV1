@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ProfileComponent } from '../profileData';
 
 @Component({
   selector: 'app-sign-up',
@@ -31,6 +32,7 @@ export class SignUpComponent {
       req.subscribe((response) => {
         if(response) {
           console.log("user signed up!");
+          ProfileComponent.userEmail = user.Email;
           this.router.navigate(['/home']); 
         }
         else {
