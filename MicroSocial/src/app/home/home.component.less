@@ -1,50 +1,83 @@
-:host {
-    display:flex; 
-    flex-direction:column;
-    justify-content: center;
+  @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
 
-    ::ng-deep .mat-card{
-        background-color: #98CDCC;
-    }
-  }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Raleway, sans-serif;
+}
 
-  h3 {
-    color:#EFA620;
-    font-size: 30px;
-    font-weight: bold;
-    text-align: center;
-  }
+.container {
+  background: linear-gradient(90deg, #1781AC, #b1d2d1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
 
-  mat-card {
-    display: block;
-    margin-left:auto;
-    margin-right:auto;  
-    margin-top:10px;
-    margin-bottom:10px;
-    width: 30%;
-    height: max-content;
+.screen {
+  background: #fff;
+  position: relative;
+  height: 800px;
+  width: 700px;
+  box-shadow: 0px 0px 32px #1781AC;
+}
 
-    mat-card-actions {
-        text-align: right;
-    }
-  }
+.screen__content {
+  z-index: 1;
+  position: relative;
+  height: 100%;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: auto;
+}
 
-  mat-card-title,
-  mat-card-subtitle {
-    display: flex;
-    justify-content: center;
-  }
-
-  mat-card-title {
+.styled_button {
+	background: #fff;
+	font-size: 14px;
+	margin-top: 0px;
+	padding: 16px 20px;
+	border-radius: 26px;
+	border: 1px solid #D4D3E8;
+	text-transform: uppercase;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	color: #1781AC;
+	box-shadow: 0px 2px 2px #1781AC;
+	cursor: pointer;
+	transition: .2s;
     margin-bottom: 20px;
-  }
+}
 
-  .button {
-    display: flex;
+.styled_button:active,
+.styled_button:focus,
+.styled_button:hover {
+	border-color: #1781AC;
+	outline: none;
+}
+
+h1 {
+  color:#1781AC;
+  font-size: 32px;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  font-family: Raleway, sans-serif;
+  font-weight: bold;
+}
+
+mat-card {
+    margin: 10px 10px 10px 10px;
     justify-content: center;
     text-align: center;
-  }
+    background-color: #1781AC;
+}
 
-  .text-center {
-    text-align: center;
-  }
+::ng-deep .mat-card-actions {
+	.mat-button {
+        border-radius: 26px;
+	    border: 1px solid #fff;
+    }
+}

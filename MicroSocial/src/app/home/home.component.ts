@@ -71,4 +71,12 @@ export class HomeComponent implements OnInit {
       })
     }
   }
+
+  public onJoinEventClicked(eventId:string) {
+    console.log(eventId);
+  }
+
+  public onLeaveEventClicked(eventId:string) {
+    console.log(eventId);
+  }
 }
