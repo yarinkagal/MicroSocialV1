@@ -23,7 +23,7 @@ namespace MicroSocialServer.Controllers
         public UsersController()
         {
             //TODO : change the way we connect - key vault?
-            string connectionString = "DefaultEndpointsProtocol=https;AccountName=microsocialsa;AccountKey=CHF8pltHJpzN46v+G2QXCyoxvG2PuonRf2RmOX72ZT4mFqGLqp6Jxsq3kjfHZ+uZ1+/2k3+kseIW+ASt/q19qQ==;EndpointSuffix=core.windows.net";
+            string connectionString = "";
             string containerName = "users";
             blobService = new BlobServiceClient(connectionString);
             usersContainer = blobService.GetBlobContainerClient(containerName);

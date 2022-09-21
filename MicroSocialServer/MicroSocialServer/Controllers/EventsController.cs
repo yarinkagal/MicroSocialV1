@@ -22,7 +22,7 @@ namespace MicroSocialServer.Controllers
         public EventsController()
         {
             //TODO : change the way we connect - key vault?
-            string connectionString = "DefaultEndpointsProtocol=https;AccountName=microsocialsa;AccountKey=CHF8pltHJpzN46v+G2QXCyoxvG2PuonRf2RmOX72ZT4mFqGLqp6Jxsq3kjfHZ+uZ1+/2k3+kseIW+ASt/q19qQ==;EndpointSuffix=core.windows.net";
+            string connectionString = "";
             string containerName = "events";
             blobService = new BlobServiceClient(connectionString);
             EventsContainer = blobService.GetBlobContainerClient(containerName);
