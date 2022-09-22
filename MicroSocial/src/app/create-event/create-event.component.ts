@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { ProfileComponent, Event } from '../profileData';
+import { Event } from '../profileData';
 
 @Component({
   selector: 'app-create-event',
@@ -44,12 +44,14 @@ export class CreateEventComponent {
       }
       date += (this.eventDate.getUTCMonth()+1).toString();
       date += this.eventDate.getFullYear().toString();
+      let time = this.eventTime;
+      time = time.replace(':', '');
 
       const newEvent = <Partial<Event>>{
         category: this.eventTypes.filter(item => item.value === this.eventCategory)[0].viewValue,
-        time: this.eventTime,
+        time: time,
         date: date,
-        owner: ProfileComponent.userEmail
+        owner: localStorage.getItem('user')
       };
       const req = this.http.post<string>('https://microsocial.azurewebsites.net/events/addevent', newEvent);
       req.subscribe((response) => {

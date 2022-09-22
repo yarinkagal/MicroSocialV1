@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationsService } from '../notifications.service';
 import { HttpClient } from '@angular/common/http';
-import { ProfileComponent, Event } from '../profileData';
+import { Event } from '../profileData';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
 
     //get my events
-    this.http.get<Event[]>('https://microsocial.azurewebsites.net/events/GetUsersEvents/' + ProfileComponent.userEmail).subscribe((serverMyEvents) => {
+    this.http.get<Event[]>('https://microsocial.azurewebsites.net/events/GetUsersEvents/' + localStorage.getItem('user')).subscribe((serverMyEvents) => {
       serverMyEvents.forEach((serverMyEvent) => {
         this.myEvents.push({
           category: serverMyEvent.category,
@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
     });
 
     //get user information to check if he is checked in
-    this.http.get<any>('https://microsocial.azurewebsites.net/users/GetUser/' + ProfileComponent.userEmail).subscribe((userInfo) => {
+    this.http.get<any>('https://microsocial.azurewebsites.net/users/GetUser/' + localStorage.getItem('user')).subscribe((userInfo) => {
       let isCheckedIn: boolean = userInfo.CheckedIn;
       this.checkInButtonValue = isCheckedIn ? "Check Out" : "Check In";
     });
@@ -70,10 +70,10 @@ export class HomeComponent implements OnInit {
 
   public onJoinEventClicked(eventId: string): void {
     console.log(eventId);
-    this.http.post<Object>('https://microsocial.azurewebsites.net/events/addParticipants', { Id: eventId, ParticipantsList: [{ Email: ProfileComponent.userEmail }] }).subscribe((obj) => {
+    this.http.post<Object>('https://microsocial.azurewebsites.net/events/addParticipants', { Id: eventId, ParticipantsList: [{ Email: localStorage.getItem('user') }] }).subscribe((obj) => {
       if (obj) {
         console.log("added to event");
-        this.http.get<Event[]>('https://microsocial.azurewebsites.net/events/GetUsersEvents/' + ProfileComponent.userEmail).subscribe((serverMyEvents) => {
+        this.http.get<Event[]>('https://microsocial.azurewebsites.net/events/GetUsersEvents/' + localStorage.getItem('user')).subscribe((serverMyEvents) => {
           this.myEvents = [];
           serverMyEvents.forEach((serverMyEvent) => {
             this.myEvents.push({
@@ -93,10 +93,10 @@ export class HomeComponent implements OnInit {
 
   public onLeaveEventClicked(eventId: string): void {
     console.log(eventId);
-    this.http.put<Object>('https://microsocial.azurewebsites.net/events/removeParticipants', { Id: eventId, ParticipantsList: [{ Email: ProfileComponent.userEmail }] }).subscribe((obj) => {
+    this.http.post<Object>('https://microsocial.azurewebsites.net/events/removeParticipants', { Id: eventId, ParticipantsList: [{ Email: localStorage.getItem('user') }] }).subscribe((obj) => {
       if (obj) {
         console.log("removed from event");
-        this.http.get<Event[]>('https://microsocial.azurewebsites.net/events/GetUsersEvents/' + ProfileComponent.userEmail).subscribe((serverMyEvents) => {
+        this.http.get<Event[]>('https://microsocial.azurewebsites.net/events/GetUsersEvents/' + localStorage.getItem('user')).subscribe((serverMyEvents) => {
           this.myEvents = [];
           serverMyEvents.forEach((serverMyEvent) => {
             this.myEvents.push({
@@ -116,7 +116,7 @@ export class HomeComponent implements OnInit {
 
   public checkIn(): void {
     let checkedIn = this.checkInButtonValue === "Check In" ? true : false;
-    this.http.post<any>('https://microsocial.azurewebsites.net/users/checkInOut', { Email: ProfileComponent.userEmail, CheckedIn: checkedIn }).subscribe();
+    this.http.post<any>('https://microsocial.azurewebsites.net/users/checkInOut', { Email: localStorage.getItem('user'), CheckedIn: checkedIn }).subscribe();
     if (this.checkInButtonValue === "Check In") {
       this.checkInButtonValue = "Check Out";
       console.log("Checked In");
