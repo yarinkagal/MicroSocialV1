@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatChip } from '@angular/material/chips';
 import { Router } from '@angular/router';
 import { ProfileComponent } from '../profileData';
 
@@ -35,8 +36,10 @@ export class PreferencesComponent implements OnInit {
 
   chipControlOnSelect(event: any,preference: any) {
       this.preferences[preference] = event.selected;
-  
-    
+  }
+
+  public selectChip(item: MatChip) {
+    item.selected = !item.selected;
   }
 
   saveAndProceed() {

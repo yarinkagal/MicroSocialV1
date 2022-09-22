@@ -12,31 +12,9 @@ export class HomeComponent implements OnInit {
 
   public checkInButtonValue: string = "Check In";
 
-  myEvents = [
-    {
-      category: "Play date",
-      date: "25.09.22",
-      time: "10:30"
-    }
-  ]
-
-  public events = [
-    {
-      category: "Basketball",
-      date: "20.09.22",
-      time: "now"
-    },
-    {
-      category: "Play date",
-      date: "25.09.22",
-      time: "10:30"
-    },
-    {
-      category: "Music Session",
-      date: "25.09.22",
-      time: "16:00"
-    }
-  ]
+  public myEvents = <any>[];
+  public events = <any>[];
+  public eventIds = <any>[];
 
   constructor(
     private readonly notificationsService: NotificationsService,
@@ -45,35 +23,42 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    //get all events
-    this.http.get<Event[]>('https://microsocial.azurewebsites.net/events/allEvents').subscribe((serverEvents) => {
-      serverEvents.forEach( (serverEvent) => {
-        this.events.push({
-          category: serverEvent.category,
-          date: serverEvent.date,
-          time: serverEvent.time
-        });
-    })});
-
     //get my events
     this.http.get<Event[]>('https://microsocial.azurewebsites.net/events/GetUsersEvents/' + ProfileComponent.userEmail).subscribe((serverMyEvents) => {
-      serverMyEvents.forEach( (serverMyEvent) => {
+      serverMyEvents.forEach((serverMyEvent) => {
         this.myEvents.push({
           category: serverMyEvent.category,
           date: serverMyEvent.date,
-          time: serverMyEvent.time
+          time: serverMyEvent.time,
+          id: serverMyEvent.id
         });
-    })});
+        this.eventIds.push(serverMyEvent.id.toString());
+      })
+    });
+
+    //get all events
+    this.http.get<Event[]>('https://microsocial.azurewebsites.net/events/allEvents').subscribe((serverEvents) => {
+      serverEvents.forEach((serverEvent) => {
+          if (!this.eventIds.includes(serverEvent.id.toString())) { 
+            this.events.push({
+              category: serverEvent.category,
+              date: serverEvent.date,
+              time: serverEvent.time,
+              id: serverEvent.id
+            });
+          }
+      })
+    });
 
     //get user information to check if he is checked in
     this.http.get<any>('https://microsocial.azurewebsites.net/users/GetUser/' + ProfileComponent.userEmail).subscribe((userInfo) => {
-      let isCheckedIn: boolean =  userInfo.CheckedIn;
+      let isCheckedIn: boolean = userInfo.CheckedIn;
       this.checkInButtonValue = isCheckedIn ? "Check Out" : "Check In";
     });
 
     const button = document.getElementById('notifications');
     if (button) {
-        button.addEventListener('click', () => {
+      button.addEventListener('click', () => {
         Notification.requestPermission().then((result) => {
           if (result === 'granted') {
             this.notificationsService.randomNotification();
@@ -83,13 +68,55 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  public onJoinEventClicked(eventId:string): void {
+  public onJoinEventClicked(eventId: string): void {
     console.log(eventId);
+    this.http.post<Object>('https://microsocial.azurewebsites.net/events/addParticipants', { Id: eventId, ParticipantsList: [{ Email: ProfileComponent.userEmail }] }).subscribe((obj) => {
+      if (obj) {
+        console.log("added to event");
+        this.http.get<Event[]>('https://microsocial.azurewebsites.net/events/GetUsersEvents/' + ProfileComponent.userEmail).subscribe((serverMyEvents) => {
+          this.myEvents = [];
+          serverMyEvents.forEach((serverMyEvent) => {
+            this.myEvents.push({
+              category: serverMyEvent.category,
+              date: serverMyEvent.date,
+              time: serverMyEvent.time,
+              id: serverMyEvent.id
+            });
+          })
+        });
+      }
+      else {
+        console.log("error adding to event");
+      }
+    });
+  }
+
+  public onLeaveEventClicked(eventId: string): void {
+    console.log(eventId);
+    this.http.put<Object>('https://microsocial.azurewebsites.net/events/removeParticipants', { Id: eventId, ParticipantsList: [{ Email: ProfileComponent.userEmail }] }).subscribe((obj) => {
+      if (obj) {
+        console.log("removed from event");
+        this.http.get<Event[]>('https://microsocial.azurewebsites.net/events/GetUsersEvents/' + ProfileComponent.userEmail).subscribe((serverMyEvents) => {
+          this.myEvents = [];
+          serverMyEvents.forEach((serverMyEvent) => {
+            this.myEvents.push({
+              category: serverMyEvent.category,
+              date: serverMyEvent.date,
+              time: serverMyEvent.time,
+              id: serverMyEvent.id
+            });
+          })
+        });
+      }
+      else {
+        console.log("error removing from event");
+      }
+    });
   }
 
   public checkIn(): void {
     let checkedIn = this.checkInButtonValue === "Check In" ? true : false;
-    this.http.post<any>('https://microsocial.azurewebsites.net/users/checkInOut', { Email: ProfileComponent.userEmail, CheckedIn: checkedIn}).subscribe();
+    this.http.post<any>('https://microsocial.azurewebsites.net/users/checkInOut', { Email: ProfileComponent.userEmail, CheckedIn: checkedIn }).subscribe();
     if (this.checkInButtonValue === "Check In") {
       this.checkInButtonValue = "Check Out";
       console.log("Checked In");

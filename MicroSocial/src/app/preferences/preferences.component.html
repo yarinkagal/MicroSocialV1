@@ -5,7 +5,7 @@
       <h3> What are your interests? </h3>
       <mat-chip-list multiple class="preferences-container">
         <mat-chip *ngFor="let preference of preferences | keyvalue" [selected]="!!preference.value" #chip="matChip"
-          (click)='chip.select()' (selectionChange)="chipControlOnSelect($event,preference.key)">
+          (click)='selectChip(chip)' (selectionChange)="chipControlOnSelect($event,preference.key)">
           {{preference.key}}
         </mat-chip>
       </mat-chip-list>
