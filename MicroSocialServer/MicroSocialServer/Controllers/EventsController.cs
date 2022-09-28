@@ -22,7 +22,7 @@ namespace MicroSocialServer.Controllers
         public EventsController()
         {
             //TODO : change the way we connect - key vault?
-            string connectionString = "";
+            string connectionString = "DefaultEndpointsProtocol=https;AccountName=microsocialsa;AccountKey=CHF8pltHJpzN46v+G2QXCyoxvG2PuonRf2RmOX72ZT4mFqGLqp6Jxsq3kjfHZ+uZ1+/2k3+kseIW+ASt/q19qQ==;EndpointSuffix=core.windows.net";
             string containerName = "events";
             blobService = new BlobServiceClient(connectionString);
             EventsContainer = blobService.GetBlobContainerClient(containerName);
@@ -82,7 +82,7 @@ namespace MicroSocialServer.Controllers
 
             DateTime eventDate = new DateTime(year, month, day, hour, minute,0);
             TimeSpan ts = eventDate - now;
-            return ts.TotalMilliseconds + 1800000; // difference + 30 minutes
+            return ts.TotalMilliseconds + 900000; // difference + 15 minutes
 
         }
 
@@ -201,7 +201,7 @@ namespace MicroSocialServer.Controllers
         }
 
         // Put: Events/addParticipants
-        [HttpPut("addParticipants")]
+        [HttpPost("addParticipants")]
         public async Task<IActionResult> AddParticipants(Event Event)
         {
             try
@@ -226,7 +226,7 @@ namespace MicroSocialServer.Controllers
                     await blobClient.UploadAsync(BinaryData.FromString(jsonString), overwrite: true);
 
                     result["added"] = true;
-                    User owner = await getBlobAsUser(getAlias(Event.Owner));
+                    User owner = await getBlobAsUser(getAlias(dbEvent.Owner));
                     result["owner"] = owner;
                 }
                 
@@ -240,7 +240,7 @@ namespace MicroSocialServer.Controllers
         }
 
         // Put: Events/removeParticipants
-        [HttpPut("removeParticipants")]
+        [HttpPost("removeParticipants")]
         public async Task<IActionResult> RemoveParticipants(Event Event)
         {
             try
@@ -249,18 +249,16 @@ namespace MicroSocialServer.Controllers
                 BlobClient blobClient = EventsContainer.GetBlobClient(Event.Id);
                 Dictionary<string, object> result = new Dictionary<string, object>();
 
-                
-                foreach (User user in Event.ParticipantsList)
+                for (int i = Event.ParticipantsList.Count-1; i >= 0; i--)
                 {
-                    User dbUser = await getBlobAsUser(getAlias(user.Email));
-
-                    dbEvent.ParticipantsList.Remove(dbUser);
+                    dbEvent.ParticipantsList.RemoveAt(i);
                 }
+
                 string jsonString = JsonConvert.SerializeObject(dbEvent);
                 await blobClient.UploadAsync(BinaryData.FromString(jsonString), overwrite: true);
 
                 result["removed"] = true;
-                User owner = await getBlobAsUser(getAlias(Event.Owner));
+                User owner = await getBlobAsUser(getAlias(dbEvent.Owner));
                 result["owner"] = owner;
 
                 return Ok(result);
