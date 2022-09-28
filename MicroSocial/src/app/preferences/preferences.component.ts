@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatChip } from '@angular/material/chips';
 import { Router } from '@angular/router';
-import { ProfileComponent } from '../profileData';
 
 @Component({
   selector: 'app-preferences',
@@ -12,7 +12,7 @@ export class PreferencesComponent implements OnInit {
 
   preferences: any | undefined;
   
-  email = "";
+  email: string | null = '';
 
   constructor(private http: HttpClient,
     private router: Router) { 
@@ -20,7 +20,7 @@ export class PreferencesComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.email = ProfileComponent.userEmail;
+    this.email = localStorage.getItem('user');
     const req = this.http.get<any>(`https://microsocial.azurewebsites.net/users/GetUser/${this.email}`);  
       req.subscribe((response) => {
         if(response) {
@@ -35,8 +35,10 @@ export class PreferencesComponent implements OnInit {
 
   chipControlOnSelect(event: any,preference: any) {
       this.preferences[preference] = event.selected;
-  
-    
+  }
+
+  public selectChip(item: MatChip) {
+    item.selected = !item.selected;
   }
 
   saveAndProceed() {
